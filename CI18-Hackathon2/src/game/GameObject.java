@@ -4,10 +4,15 @@ import game.Renderer.Renderer;
 import game.physics.BoxCollider;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 public class GameObject {
-    public static ArrayList<GameObject> objects=new ArrayList<> (  );
+    public static ArrayList<GameObject> objects=new ArrayList<> ();
+    public static ArrayList<GameObject>toplayers=new ArrayList<> (  );
+    public static ArrayList<GameObject>midlayers=new ArrayList<> (  );
+    public static ArrayList<GameObject>botlayers=new ArrayList<> (  );
 
     public static <E extends GameObject> E recycle(Class<E> cls){
         //1.tìm phần tử deactive>>reset>>trả về
@@ -60,9 +65,10 @@ public class GameObject {
     public Vector2D anchor;
     public GameObject(){
         objects.add ( this );
+
         position=new Vector2D (  );
         velocity=new Vector2D (  );
-        anchor=new Vector2D (  );
+        anchor=new Vector2D (0.5,0.5  );
         active=true;
     }
     public void render(Graphics g){
@@ -70,7 +76,34 @@ public class GameObject {
             renderer.render ( g,this );
         }
     }
-    public void run(){
+    public static void renderall(Graphics g){
+        for(int i=0;i<botlayers.size ();i++){
+            GameObject object=botlayers.get ( i );
+            if(object.active){
+                object.render ( g );
+            }
+        }
+        for(int i=0;i<midlayers.size ();i++){
+            GameObject object=midlayers.get ( i );
+            if(object.active){
+                object.render ( g );
+            }
+        }
+        for(int i=0;i<toplayers.size ();i++){
+            GameObject object=toplayers.get ( i );
+            if(object.active){
+                object.render ( g );
+            }
+        }
+    }
+
+    public static void clearAll(){
+        objects.clear ();
+        toplayers.clear ();
+        midlayers.clear ();
+        botlayers.clear ();
+    }
+    public void run()  {
         position.add ( velocity );
     }
     public void deactive(){

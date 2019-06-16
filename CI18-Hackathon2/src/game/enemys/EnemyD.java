@@ -1,17 +1,16 @@
 package game.enemys;
 
+import game.GameObject;
 import game.Renderer.Renderer;
+import game.scene.LoadObjects;
 import tklibs.Mathx;
 
 public class EnemyD extends Enemy {
     public EnemyD(){
-        renderer=new Renderer ( "images/Enemys/red.png" );
-        velocity.set ( 0, Mathx.random ( 2,5 ) );
+        GameObject.midlayers.add ( this );
+        renderer=new Renderer ( LoadObjects.enemyimageD );
+
     }
 
-    @Override
-    public void reset() {
-        super.reset ();
-        velocity.set ( 0, Mathx.random ( 2,5 ) );
-    }
+
 }

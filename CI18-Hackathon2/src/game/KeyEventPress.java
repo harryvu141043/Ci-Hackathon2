@@ -6,4 +6,5 @@ public class KeyEventPress {
     public  static boolean isLeftPress=false;
     public static boolean isRightPress=false;
     public static boolean isFire=false;
+    public static boolean isAnyKeyPress=false;
 }

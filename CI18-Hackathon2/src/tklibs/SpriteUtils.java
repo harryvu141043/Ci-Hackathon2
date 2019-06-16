@@ -13,13 +13,15 @@ import java.util.Arrays;
  * Created by huynq on 5/11/17.
  */
 public class SpriteUtils {
-
+    static int count = 0;
     public static BufferedImage loadImage(String fileUrl) {
         try {
             return ImageIO.read(new File(fileUrl));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        count++;
+        System.out.println (count);
         return null;
     }
     public static ArrayList<BufferedImage> loadImages(String dirurl){
@@ -27,15 +29,16 @@ public class SpriteUtils {
         try {
             String[] fileNames=new File(dirurl).list ();
             Arrays.sort(fileNames);
-            System.out.println (fileNames);
+
             for(String fileName:fileNames){
-                System.out.println (fileName);
+
 //                System.out.println (dirurl+"/"+fileName);
 //                BufferedImage image=ImageIO.read ( new File ( dirurl+"/"+fileName ) );
                 BufferedImage image=loadImage ( dirurl+"/"+fileName );
 //                System.out.println (fileName);
                 images.add (image);
-//                System.out.println (images);
+                count++;
+                System.out.println (count);
             }
         }catch (Exception ex){
             ex.printStackTrace ();

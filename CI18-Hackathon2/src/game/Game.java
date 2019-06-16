@@ -1,31 +1,33 @@
 package game;
 
 import game.Player.Player;
-import game.enemys.Enemy;
-import game.enemys.EnemyD;
 import game.enemys.EnemySummoner;
-import game.enemys.EnemyX;
+import game.scene.SceneManager;
+import game.scene.SceneWelcome;
 
+
+import javax.imageio.IIOException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Game {
     static class Panel extends JPanel {
-        Background background;
-        EnemySummoner enemySummoner;
-        EnemyD enemyD;
-        EnemyX enemyX;
-        Player player;
-
+        static Menu menu=new Menu (  );
         public Panel() {
 
             this.config ();
             this.createObjects ();
             this.addListerners ();
+
 
 
         }
@@ -34,6 +36,7 @@ public class Game {
             KeyAdapter KeyHandler = new KeyAdapter () {
                 @Override
                 public void keyPressed(KeyEvent e) {
+                    KeyEventPress.isAnyKeyPress=true;
                     if (e.getKeyCode () == KeyEvent.VK_SPACE) {
                         KeyEventPress.isFire=true;
                     }
@@ -53,6 +56,7 @@ public class Game {
 
                 @Override
                 public void keyReleased(KeyEvent e) {
+                    KeyEventPress.isAnyKeyPress=false;
                     if (e.getKeyCode () == KeyEvent.VK_SPACE) {
                             KeyEventPress.isFire=false;
                     }
@@ -73,36 +77,19 @@ public class Game {
             this.addKeyListener ( KeyHandler );
         }
 
-        private void createObjects() {
-
-            enemySummoner=new EnemySummoner ();
-            background = new Background ();
-
-//            enemyD=new EnemyD ();
-//
-//            enemyX=new EnemyX ();
-
-            player = new Player ();
-
-
-
-
+        public void createObjects() {
+            SceneManager.signNewScene ( new SceneWelcome () );
 
         }
-
         private void config() {
-            this.setPreferredSize ( new Dimension ( 637, 800 ) );
+            this.setPreferredSize ( new Dimension ( Settings.GAME_WIDTH, Settings.GAME_HEIGHT ) );
         }
 
         @Override
         public void paint(Graphics g) {
-            for (int i = 0; i < GameObject.objects.size (); i++) {
-                GameObject object = GameObject.objects.get ( i );
-                if (object.active) {
-                    object.render ( g );
-                }
-                System.out.println ( GameObject.objects.size () );
-            }
+            GameObject.renderall ( g );
+
+
         }
 
 
@@ -134,7 +121,7 @@ public class Game {
 
 
         private void config() {
-//            this.setResizable ( false );
+            this.setResizable ( false );
             this.setDefaultCloseOperation ( EXIT_ON_CLOSE );
         }
 
@@ -144,7 +131,7 @@ public class Game {
             this.pack ();
         }
 
-        public void gameLoop() {
+        public void gameLoop(){
             long lastTime = System.currentTimeMillis ();
             while (true) {
                 long currentTime = System.currentTimeMillis ();
@@ -160,9 +147,12 @@ public class Game {
     }
 
     public static void main(String[] args) {
+
         Window window = new Window ();
         window.setVisible ( true );
         window.gameLoop ();
+
+
     }
 
 }

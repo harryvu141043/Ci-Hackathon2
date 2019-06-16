@@ -3,8 +3,11 @@ package game.enemys;
 import game.GameObject;
 import tklibs.Mathx;
 
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
+
 public class EnemySummoner extends GameObject {
-    public EnemySummoner(){}
+    public EnemySummoner(){GameObject.midlayers.add ( this );}
     int count=0;
 
     @Override
@@ -16,8 +19,9 @@ public class EnemySummoner extends GameObject {
 
     private void SummonEnemy() {
         count++;
-        if(count>80){
-            int EnemyType=Mathx.random ( 1,2 );
+        if(count>2*80){
+            int EnemyType=Mathx.random ( 2,2 );
+
             switch (EnemyType){
                 case 1:{
                     EnemyD enemyD=GameObject.recycle ( EnemyD.class );
@@ -29,8 +33,14 @@ public class EnemySummoner extends GameObject {
 
                     break;
                 }
+                case 3:{
+                    EnemyV enemyV=GameObject.recycle ( EnemyV.class );
+
+                    break;
+                }
             }
             count=0;
+
         }
     }
 }
