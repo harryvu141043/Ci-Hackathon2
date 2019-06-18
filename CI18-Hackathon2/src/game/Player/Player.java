@@ -17,12 +17,12 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 
 public class Player extends GameObject{
-    Enemy enemy=new Enemy ();
     Clip sound;
     public Player() {
 
         GameObject.toplayers.add ( this );
         renderer=new Renderer (LoadObjects.playerimage );
+//        renderer=LoadObjects.playerimage;
 
         position.set ( 800, 800 );
         anchor.set ( 0.5, 0.5 );

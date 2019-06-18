@@ -3,16 +3,19 @@ package game.scene;
 import game.GameObject;
 import game.Player.Player;
 import game.Player.PlayerBullet;
+import game.Renderer.Renderer;
 import game.Settings;
 import game.enemys.Enemy;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Menu extends GameObject {
-
+    BufferedImage image;
 
     public Menu() {
         GameObject.toplayers.add ( this );
+        image=LoadObjects.menu;
     }
 
     @Override
@@ -35,7 +38,9 @@ public class Menu extends GameObject {
         g.drawString (1<=Settings.numbershoot?mess:"hết đạn", Settings.BACKGROUND_WIDTH + 290, 100 );
         g.drawString ( "Điểm :"+score,Settings.BACKGROUND_WIDTH+50, 200);
         g.drawString ( "Kỉ lục:"+   Settings.HighScore,Settings.BACKGROUND_WIDTH+50, 300 );
-        g.drawString ( Settings.mang+"",Settings.BACKGROUND_WIDTH+50, 400 );
+        g.drawImage ( image,Settings.BACKGROUND_WIDTH+50,375,null );
+        g.setColor ( Settings.mang>=4?Color.GREEN:2<=Settings.mang?Color.YELLOW:Color.RED );
+        g.drawString ( ":"+Settings.mang+"",Settings.BACKGROUND_WIDTH+100, 400 );
     }
 
     private void drawBackground(Graphics g) {

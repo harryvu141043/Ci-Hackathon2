@@ -15,7 +15,10 @@ public class Background extends GameObject {
     public Background(){
         GameObject.botlayers.add ( this );
         renderer=new Renderer (LoadObjects.backgroundimage );
-        position=new Vector2D ( 1280/2,853/2 );
+//        renderer=LoadObjects.backgroundimage;
+//        position=new Vector2D ( 1280/2,853/2 );
+        anchor.set ( 0,0 );
+        position.set ( 0,0 );
 
 
     }

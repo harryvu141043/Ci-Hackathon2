@@ -27,7 +27,7 @@ public class SceneStage1 extends Scene{
 
     @Override
     public void clear()  {
-        Settings.mang=3;
+        Settings.mang=4;
         if(Settings.score>=Settings.HighScore){
         Settings.HighScore=Settings.score;}
         Settings.numbershoot=3;

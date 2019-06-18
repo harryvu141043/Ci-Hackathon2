@@ -15,11 +15,10 @@ import java.io.UnsupportedEncodingException;
 public class Enemy extends GameObject {
     public Enemy(){
         GameObject.midlayers.add ( this );
-        hitBox=new BoxCollider ( this,50,50 );
-        position.set(100,100);
-        velocity.set ( 0,1 );
-
-
+        hitBox=new BoxCollider ( this,35,35 );
+        position.set (Mathx.random ( 20,800 ),-50 );
+        velocity.set (  Mathx.random ( -1,1 ),Mathx.random ( 2,4 ));
+        velocity.setAngle (  Math.toRadians ( Mathx.random ( 25,50 ) ));
 
     }
 
@@ -27,13 +26,44 @@ public class Enemy extends GameObject {
     public void run() {
         super.run ();
         this.DeactiveIfNeeded();
+        this.move();
 
     }
 
+    private void move() {
+        if(this.onGoingRight()
+                && this.outOfBoundRight()){
+            this.reverseVelocityX();
+        }
+        if(this.onGoingLeft() && this.outOfBoundLeft()){
+            this.reverseVelocityX ();
+        }
+    }
+
+    private boolean outOfBoundLeft() {
+        return position.x<25;
+    }
+
+    private boolean onGoingLeft() {
+        return velocity.x<0;
+    }
+
+
+    private void reverseVelocityX() {
+        velocity.x=-velocity.x;
+    }
+
+    private boolean outOfBoundRight() {
+        return position.x>1280-25;
+    }
+
+    private boolean onGoingRight() {
+        return velocity.x>0;
+    }
+
     private void DeactiveIfNeeded() {
-        if(this.position.y> 856 || this.position.y<-10 || this.position.x<-10 || this.position.x>1290){
+        if(this.position.y> 880 ){
             this.deactive ();
-            System.out.println ("kkkkk");
             Settings.mang--;
 
         }
@@ -41,8 +71,9 @@ public class Enemy extends GameObject {
     @Override
     public void reset() {
         super.reset ();
-        position.set(100,100);
-        velocity.set ( 0,1);
+        position.set ( Mathx.random ( 20,800 ),-50 );
+        velocity.set (  Mathx.random ( -2,1 ),Mathx.random ( 2,4 ));
+        velocity.setAngle (  Math.toRadians ( Mathx.random ( 25,50 ) ));
 
 
     }

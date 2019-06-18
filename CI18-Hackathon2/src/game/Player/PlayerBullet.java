@@ -13,7 +13,7 @@ import javax.sound.sampled.Clip;
 import java.awt.image.BufferedImage;
 
 public class PlayerBullet extends GameObject {
-        Clip sound;
+    Clip sound;
 
         public PlayerBullet(){
 
@@ -21,7 +21,8 @@ public class PlayerBullet extends GameObject {
             sound= LoadObjects.playerbulletsound;
             AudioUtils.replay ( sound );
             renderer=new Renderer (LoadObjects.playerbulletimages,true,0);
-            hitBox=new BoxCollider ( this,10, 10 );
+//            renderer=LoadObjects.playerbulletimage;
+            hitBox=new BoxCollider ( this,15, 15 );
         }
 
     @Override
@@ -30,6 +31,7 @@ public class PlayerBullet extends GameObject {
 
     }
     private void checkenemy() {
+
         Enemy enemy=GameObject.findIntersects ( Enemy.class,hitBox );
         if(enemy!=null){
             enemy.deactive ();

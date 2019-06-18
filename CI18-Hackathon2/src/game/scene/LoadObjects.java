@@ -10,8 +10,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class LoadObjects extends GameObject {
-    public static BufferedImage backgroundimage,playerimage,playerbulletimage,enemyimageD,enemyimageX,enemyimageV;
-    public static Clip playerbulletsound,gamesound,explosionsoundm,playeremptybullet;
+    public static BufferedImage backgroundimage,playerimage,playerbulletimage,enemyimageD,enemyimageX,enemyimageV,explosionimage,menu,gameoverimage;
+    public static Clip playerbulletsound,gamesound,explosionsoundm,playeremptybullet,gameover;
     public static ArrayList<BufferedImage> playerbulletimages=new ArrayList<> (  ),explosionimages=new ArrayList<> (  );
     public LoadObjects(){
         GameObject.toplayers.add ( this );
@@ -24,7 +24,7 @@ public class LoadObjects extends GameObject {
     @Override
     public void run() {
         count++;
-        if(count>100){
+        if(count>30){
             SceneManager.signNewScene ( new SceneStage1 () );
             count=0;
         }
@@ -33,7 +33,18 @@ public class LoadObjects extends GameObject {
         this.loadPlayerEmptyBullet();
         this.loadPlayerbullet();
         this.loadExplosion();
+        this.loadGameOver();
         this.loadPlayer();
+        this.loadmenu();
+    }
+
+    private void loadGameOver() {
+        gameoverimage=SpriteUtils.loadImage ( "images/gameover.jpg" );
+        gameover=AudioUtils.loadSound ( "musics/game over.wav" );
+    }
+
+    private void loadmenu() {
+        menu=SpriteUtils.loadImage ( "images/fmimg7944327154351991776.png" );
     }
 
     private void loadPlayerEmptyBullet() {
@@ -76,6 +87,7 @@ public class LoadObjects extends GameObject {
 //        backgroundimage=new Renderer ( "images/Backgrounds/background-doc-dao-va-dep_110341729.png" );
         backgroundimage=SpriteUtils.loadImage ( "images/Backgrounds/background-doc-dao-va-dep_110341729.png" );
     }
+
 
 
 

@@ -19,22 +19,33 @@ public class EnemySummoner extends GameObject {
 
     private void SummonEnemy() {
         count++;
-        if(count>2*80){
-            int EnemyType=Mathx.random ( 2,2 );
+        if(count>1.7*80){
+            int EnemyType=Mathx.random ( 1,3 );
+            int Typeof=Mathx.random ( 0,1 );
 
             switch (EnemyType){
                 case 1:{
                     EnemyD enemyD=GameObject.recycle ( EnemyD.class );
+                   if(Typeof==0){
+                        enemyD.velocity.setAngle ( Math.toRadians (  90) );
+                   }
+
 
                     break;
                 }
                 case 2:{
                     EnemyX enemyX=GameObject.recycle ( EnemyX.class );
+                    if(Typeof==0){
+                        enemyX.velocity.setAngle ( Math.toRadians (  90) );
+                    }
 
                     break;
                 }
                 case 3:{
                     EnemyV enemyV=GameObject.recycle ( EnemyV.class );
+                    if(Typeof==0){
+                        enemyV.velocity.setAngle ( Math.toRadians (  90) );
+                    }
 
                     break;
                 }

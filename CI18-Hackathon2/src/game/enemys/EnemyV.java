@@ -9,6 +9,7 @@ public class EnemyV extends Enemy {
     public EnemyV(){
         GameObject.midlayers.add ( this );
         renderer=new Renderer ( LoadObjects.enemyimageV );
+//        renderer=LoadObjects.enemyimageV;
 
     }
 
